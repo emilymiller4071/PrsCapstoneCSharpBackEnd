@@ -21,7 +21,8 @@ namespace PrsBackEndCSharp.Models
         [StringLength(20)]
         public string DeliveryMode { get; set; }
 
-        public DateOnly DateNeeded { get; set; }
+       
+        public DateTime DateNeeded { get; set; }
 
         [StringLength(10)]
         public string Status { get; set; }
