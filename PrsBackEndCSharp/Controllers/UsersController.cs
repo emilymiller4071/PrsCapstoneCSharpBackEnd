@@ -41,10 +41,10 @@ namespace PrsBackEndCSharp.Controllers
                 return NotFound();  // 404
             }
 
-            //return user;  // best practice: only return what's needed!
+            return user;  // best practice: only return what's needed!
 
-
-            return new { Firstname = user.FirstName, Lastname = user.LastName, Id = user.ID, IsAdmin = user.IsAdmin };
+            // best practice
+            //return new { Firstname = user.FirstName, Lastname = user.LastName, Id = user.ID, IsAdmin = user.IsAdmin };
         }
 
 
