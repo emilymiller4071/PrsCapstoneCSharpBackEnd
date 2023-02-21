@@ -20,12 +20,43 @@ namespace PrsBackEndCSharp.Controllers
             _context = context;
         }
 
+
+        //public async Task<ActionResult> LoginUser(string userName, string password)
+        //{
+        //    var user = await _context.Users.Where(u => u.UserName == userName && u.Password == password).FirstOrDefaultAsync();
+
+        //    return user;
+
+        //}
+
+
+        [Route("/login")]
+        [HttpPost]
+        public async Task<ActionResult<Object>> LoginUser([FromBody] UserPasswordObject upo)
+        {
+            var user = await _context.Users.Where(u => u.UserName == upo.username && u.Password == upo.password).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return NotFound();  // 404
+            }
+
+            //return user;  // best practice: only return what's needed!
+
+
+            return new { Firstname = user.FirstName, Lastname = user.LastName, Id = user.ID, IsAdmin = user.IsAdmin };
+        }
+
+
+
+
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
+
 
         // GET: api/Users/5
         [HttpGet("{id}")]
