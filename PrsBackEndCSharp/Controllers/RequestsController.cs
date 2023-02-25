@@ -9,10 +9,15 @@ using PrsBackEndCSharp.Models;
 
 namespace PrsBackEndCSharp.Controllers
 {
+
+
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class RequestsController : ControllerBase
     {
+
         private readonly PrsContext _context;
 
         public RequestsController(PrsContext context)
@@ -103,5 +108,45 @@ namespace PrsBackEndCSharp.Controllers
         {
             return _context.Requests.Any(e => e.ID == id);
         }
+
+
+
+
+        //    @PutMapping("/approve")
+
+        //public Request approve(@RequestBody Request approvedRequest)
+        //    {
+        //        Request request = new Request();
+        //        boolean requestExists = requestRepo.existsById(approvedRequest.getId());
+
+        //        if (requestExists)
+        //        {
+        //            approvedRequest.setStatus(APPROVED);
+
+        //            request = requestRepo.save(approvedRequest);
+        //        }
+
+        //        return request;
+        //    }
+
+        // APPROVE: api/Requests/approve
+        [HttpPut]
+        [Route("/approve")]
+        public async Task<ActionResult<Request>> Approve([FromBody] Request approvedRequest)
+        {
+            var request = await _context.Requests.FindAsync(approvedRequest.ID);
+            if (request == null)
+            {
+                return NotFound();
+            }
+
+            request.Status = "Approved";    
+          
+            await _context.SaveChangesAsync();
+
+            return request;
+        }
+
+    
     }
 }
