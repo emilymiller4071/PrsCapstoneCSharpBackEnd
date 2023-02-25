@@ -26,7 +26,8 @@ namespace PrsBackEndCSharp.Models
 
         public int VendorID { get; set; }
 
-
+        [ForeignKey(nameof(VendorID))]
+        public Vendor Vendor { get; set; }
 
 
     }

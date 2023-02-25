@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PrsBackEndCSharp.Models
 {
@@ -13,6 +16,13 @@ namespace PrsBackEndCSharp.Models
 
         public int Quantity { get; set; }
 
+        // relationship
+        [JsonIgnore]  // breaks a cycle
+        [ForeignKey(nameof(RequestID))]
+        public Request Request { get; set; }
 
+        // relationship
+        [ForeignKey(nameof(ProductID))]
+        public Product Product { get; set; }
     }
 }

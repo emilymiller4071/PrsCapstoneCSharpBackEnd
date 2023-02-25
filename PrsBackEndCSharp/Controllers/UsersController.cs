@@ -63,6 +63,8 @@ namespace PrsBackEndCSharp.Controllers
         public async Task<ActionResult<User>> GetUser(int id)
         {
             var user = await _context.Users.FindAsync(id);
+            //var user1 = await _context.Users.Where(u => u.ID == id).FirstOrDefaultAsync();
+
 
             if (user == null)
             {

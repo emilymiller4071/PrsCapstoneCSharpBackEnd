@@ -32,6 +32,10 @@ namespace PrsBackEndCSharp.Models
 
         public int UserID { get; set; }
 
+        // Relation property that ties Request object to a user
+        [ForeignKey(nameof(UserID))]
+        public User User { get; set; }
+
 
     }
 }
