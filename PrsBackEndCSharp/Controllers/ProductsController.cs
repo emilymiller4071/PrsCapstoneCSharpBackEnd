@@ -9,7 +9,7 @@ using PrsBackEndCSharp.Models;
 
 namespace PrsBackEndCSharp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -20,14 +20,14 @@ namespace PrsBackEndCSharp.Controllers
             _context = context;
         }
 
-        // GET: api/Products
+        // GET: /Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/Products/5
+        // GET: /Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -41,7 +41,7 @@ namespace PrsBackEndCSharp.Controllers
             return product;
         }
 
-        // PUT: api/Products/5
+        // PUT: /Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
@@ -72,7 +72,7 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
-        // POST: api/Products
+        // POST: /Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
@@ -83,7 +83,7 @@ namespace PrsBackEndCSharp.Controllers
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
         }
 
-        // DELETE: api/Products/5
+        // DELETE: /Products/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {

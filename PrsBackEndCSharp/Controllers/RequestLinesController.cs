@@ -30,6 +30,19 @@ namespace PrsBackEndCSharp.Controllers
         }
 
 
+        ////  MIKE'S GET: /request-lines
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
+        //{
+        //    return await _context.RequestLines
+        //        .Include(rl => rl.Request).ThenInclude(r => r.User)
+        //        .Include(rl => rl.Product).ThenInclude(product => product.Vendor)
+        //        .ToListAsync();
+        //}
+
+
+
+
 
         // GET: /request-lines/5
         [HttpGet("{id}")]
@@ -122,16 +135,27 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        void RecalculateTotal (int RequestID)
+        private async void RecalculateTotal (int requestID)
         {
-            _context.RequestLines
-                .Where(rl => rl.RequestID == RequestID)
+            var theTotal = await _context.RequestLines
+                .Where(rl => rl.RequestID == requestID)
                 .Include(rl => rl.Product)
                 .Select(rl => new { linetotal = rl.Quantity * rl.Product.Price })
-                .Sum(s => s.linetotal);
+                .SumAsync(s => s.linetotal);
           
-            _context.SaveChangesAsync();
+            // find the request
+            var theRequest = await _context.Requests.FindAsync(requestID);
+
+            // update the request
+
+            theRequest.Total = theTotal;
+
+            // save changes()
            
+                await _context.SaveChangesAsync();
+          
+         
+
 
             throw new NotImplementedException();
             
