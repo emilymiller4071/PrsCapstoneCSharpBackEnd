@@ -16,9 +16,9 @@ namespace PrsBackEndCSharp.Models
 
         public int Quantity { get; set; }
 
-        // relationship
-        [JsonIgnore]  // breaks a cycle
-        [ForeignKey(nameof(RequestID))]
+        //relationship
+       [JsonIgnore]  // breaks a cycle
+       [ForeignKey(nameof(RequestID))]
         public Request Request { get; set; }
 
         // relationship

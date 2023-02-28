@@ -9,7 +9,7 @@ using PrsBackEndCSharp.Models;
 
 namespace PrsBackEndCSharp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/request-lines")]
     [ApiController]
     public class RequestLinesController : ControllerBase
     {
@@ -20,16 +20,20 @@ namespace PrsBackEndCSharp.Controllers
             _context = context;
         }
 
-        // GET: api/RequestLines
+
+
+        // GET: /request-lines
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RequestLine>>> GetRequestLines()
+        public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
         {
             return await _context.RequestLines.ToListAsync();
         }
 
-        // GET: api/RequestLines/5
+
+
+        // GET: /request-lines/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RequestLine>> GetRequestLine(int id)
+        public async Task<ActionResult<RequestLine>> GetRequestLineById(int id)
         {
             var requestLine = await _context.RequestLines.FindAsync(id);
 
@@ -41,10 +45,11 @@ namespace PrsBackEndCSharp.Controllers
             return requestLine;
         }
 
-        // PUT: api/RequestLines/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+
+        // UPDATE: /request-lines/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRequestLine(int id, RequestLine requestLine)
+        public async Task<IActionResult> Update(int id, RequestLine requestLine)
         {
             if (id != requestLine.Id)
             {
@@ -56,6 +61,7 @@ namespace PrsBackEndCSharp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                RecalculateTotal(requestLine.RequestID);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -72,20 +78,24 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
-        // POST: api/RequestLines
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
+
+        // CREATE: /request-lines
         [HttpPost]
-        public async Task<ActionResult<RequestLine>> PostRequestLine(RequestLine requestLine)
+        public async Task<ActionResult<RequestLine>> Create(RequestLine requestLine)
         {
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
+            RecalculateTotal(requestLine.RequestID);
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
 
-        // DELETE: api/RequestLines/5
+
+
+        // DELETE: /request-lines/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRequestLine(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var requestLine = await _context.RequestLines.FindAsync(id);
             if (requestLine == null)
@@ -93,15 +103,40 @@ namespace PrsBackEndCSharp.Controllers
                 return NotFound();
             }
 
+            int theRequestID = requestLine.RequestID;
+
             _context.RequestLines.Remove(requestLine);
             await _context.SaveChangesAsync();
+            
+            RecalculateTotal(theRequestID);
 
             return NoContent();
         }
+
+
 
         private bool RequestLineExists(int id)
         {
             return _context.RequestLines.Any(e => e.Id == id);
         }
+
+
+
+        void RecalculateTotal (int RequestID)
+        {
+            _context.RequestLines
+                .Where(rl => rl.RequestID == RequestID)
+                .Include(rl => rl.Product)
+                .Select(rl => new { linetotal = rl.Quantity * rl.Product.Price })
+                .Sum(s => s.linetotal);
+          
+            _context.SaveChangesAsync();
+           
+
+            throw new NotImplementedException();
+            
+        }
+
+
     }
 }

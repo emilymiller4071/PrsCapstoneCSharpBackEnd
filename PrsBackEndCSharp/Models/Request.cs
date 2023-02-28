@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PrsBackEndCSharp.Controllers;
 
 namespace PrsBackEndCSharp.Models
 {
@@ -21,7 +22,8 @@ namespace PrsBackEndCSharp.Models
         [StringLength(20)]
         public string DeliveryMode { get; set; }
 
-       
+        public DateTime SubmittedDate { get; set; }
+
         public DateTime DateNeeded { get; set; }
 
         [StringLength(10)]
@@ -32,10 +34,20 @@ namespace PrsBackEndCSharp.Models
 
         public int UserID { get; set; }
 
-        // Relation property that ties Request object to a user
-        [ForeignKey(nameof(UserID))]
+        //Relation property that ties Request object to a user
+       [ForeignKey(nameof(UserID))]
         public User User { get; set; }
 
+
+        public const string StatusNew = "New";
+        public const string StatusInReview = "Review";
+        public const string StatusApproved = "Approved";
+        public const string StatusRejected = "Rejected";
+        public const string StatusReopened = "Reopened";
+
+        public List<RequestLine>? RequestLines { get; set; }
+
+        public List<Request>? InReviewRequests { get; set; }
 
     }
 }
