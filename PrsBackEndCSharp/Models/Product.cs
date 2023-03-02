@@ -7,7 +7,7 @@ namespace PrsBackEndCSharp.Models
     public class Product
     {
         [Key] 
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [StringLength(30)]
         public string PartNbr { get; set; }
@@ -27,7 +27,7 @@ namespace PrsBackEndCSharp.Models
         public int VendorID { get; set; }
 
         [ForeignKey(nameof(VendorID))]
-        public Vendor Vendor { get; set; }
+        public Vendor? Vendor { get; set; }
 
 
     }

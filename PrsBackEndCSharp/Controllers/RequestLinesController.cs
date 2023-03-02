@@ -22,25 +22,32 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        // GET: /request-lines
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
-        {
-            return await _context.RequestLines.ToListAsync();
-        }
-
-
-        ////  MIKE'S GET: /request-lines
+        //// GET: /request-lines
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
         //{
-        //    return await _context.RequestLines
-        //        .Include(rl => rl.Request).ThenInclude(r => r.User)
-        //        .Include(rl => rl.Product).ThenInclude(product => product.Vendor)
-        //        .ToListAsync();
+        //    return await _context.RequestLines.ToListAsync();
         //}
 
 
+
+        /*  
+         *  
+         *  THIS IS THE PROBLEM AREA.  SQL IS WRITING BAD CODE, PULLING 
+         *  FROM REQUEST WHERE IT SHOULD BE PULLING FROM REQUESTLINE
+         *  
+         */
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
+        {
+            var rl = await _context.RequestLines
+                .Include(rl => rl.Request).ThenInclude(r => r.User)
+                .Include(rl => rl.Product).ThenInclude(product => product.Vendor)
+                .ToListAsync();
+            return Ok(rl);
+        }
+        
 
 
 
@@ -64,7 +71,7 @@ namespace PrsBackEndCSharp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, RequestLine requestLine)
         {
-            if (id != requestLine.Id)
+            if (id != requestLine.ID)
             {
                 return BadRequest();
             }
@@ -101,7 +108,7 @@ namespace PrsBackEndCSharp.Controllers
             await _context.SaveChangesAsync();
             RecalculateTotal(requestLine.RequestID);
 
-            return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
+            return CreatedAtAction("GetRequestLine", new { id = requestLine.ID }, requestLine);
         }
 
 
@@ -130,7 +137,7 @@ namespace PrsBackEndCSharp.Controllers
 
         private bool RequestLineExists(int id)
         {
-            return _context.RequestLines.Any(e => e.Id == id);
+            return _context.RequestLines.Any(e => e.ID == id);
         }
 
 
