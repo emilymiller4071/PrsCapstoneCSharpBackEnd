@@ -45,8 +45,6 @@ namespace PrsBackEndCSharp.Models
         public const string STATUSREJECTED = "Rejected";
         public const string STATUSREOPENED = "Reopened";
 
-        //public List<RequestLine>? RequestLines { get; set; }
-
         public List<Request>? InReviewRequests { get; set; }
 
     }
