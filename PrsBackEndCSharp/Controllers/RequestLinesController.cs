@@ -111,7 +111,7 @@ namespace PrsBackEndCSharp.Controllers
             await _context.SaveChangesAsync();
             RecalculateTotal(requestLine.RequestID);
 
-            return CreatedAtAction("GetRequestLine", new { id = requestLine.ID }, requestLine);
+            return CreatedAtAction("GetRequestLineById", new { id = requestLine.ID }, requestLine);
         }
 
 
@@ -145,7 +145,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        private async void RecalculateTotal (int requestID)
+        private async Task RecalculateTotal (int requestID)
         {
             var theTotal = await _context.RequestLines
                 .Where(rl => rl.RequestID == requestID)
