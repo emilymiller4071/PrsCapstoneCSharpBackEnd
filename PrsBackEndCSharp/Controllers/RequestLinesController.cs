@@ -43,7 +43,7 @@ namespace PrsBackEndCSharp.Controllers
         {
             var rl = await _context.RequestLines
                 .Include(rl => rl.Request).ThenInclude(r => r.User)
-                .Include(rl => rl.Product).ThenInclude(product => product.Vendor)
+                .Include(rl => rl.Product).ThenInclude(p => p.Vendor)
                 .ToListAsync();
             return Ok(rl);
         }
@@ -55,7 +55,8 @@ namespace PrsBackEndCSharp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<RequestLine>> GetRequestLineById(int id)
         {
-            var requestLine = await _context.RequestLines.FindAsync(id);
+            var requestLine = await _context.RequestLines
+                .FindAsync(id);
 
             if (requestLine == null)
             {

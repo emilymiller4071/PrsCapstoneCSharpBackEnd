@@ -146,7 +146,7 @@ namespace PrsBackEndCSharp.Controllers
             }
             else
             {
-                request.Status = Models.Request.StatusApproved;
+                request.Status = Models.Request.STATUSAPPROVED;
             }
             await _context.SaveChangesAsync();
 
@@ -165,7 +165,7 @@ namespace PrsBackEndCSharp.Controllers
             }
             else if (request.Total <= 50)
             {
-                request.Status = Models.Request.StatusApproved;
+                request.Status = Models.Request.STATUSAPPROVED;
                 request.SubmittedDate = DateTime.Now;
             }
             else
