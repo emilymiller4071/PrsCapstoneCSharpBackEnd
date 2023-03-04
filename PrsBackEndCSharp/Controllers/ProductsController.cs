@@ -40,7 +40,7 @@ namespace PrsBackEndCSharp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.Include(p => p.Vendor).FirstOrDefaultAsync(id);
+            var product = await _context.Products.Include(p => p.Vendor).FirstOrDefaultAsync();
 
             if (product == null)
             {

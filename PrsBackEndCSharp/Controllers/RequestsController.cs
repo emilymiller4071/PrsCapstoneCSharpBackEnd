@@ -170,7 +170,7 @@ namespace PrsBackEndCSharp.Controllers
             }
             else
             {
-                request.Status = Models.Request.StatusInReview;
+                request.Status = Models.Request.STATUSINREVIEW;
                 request.SubmittedDate = DateTime.Now;
             }
             await _context.SaveChangesAsync();
@@ -189,7 +189,7 @@ namespace PrsBackEndCSharp.Controllers
             }
             else
             {
-                request.Status = Models.Request.StatusRejected;
+                request.Status = Models.Request.STATUSREJECTED;
             }
             await _context.SaveChangesAsync();
 
@@ -209,7 +209,7 @@ namespace PrsBackEndCSharp.Controllers
             }
             else
             {
-                request.Status = Models.Request.StatusReopened;
+                request.Status = Models.Request.STATUSREOPENED;
             }
             await _context.SaveChangesAsync();
 
@@ -221,27 +221,9 @@ namespace PrsBackEndCSharp.Controllers
         public async Task<ActionResult<IEnumerable<Request>>> GetAllForReview(int UserID) 
         {
             return await _context.Requests
-                    .Where(r => r.Status == Models.Request.StatusInReview && UserID != r.UserID)
+                    .Where(r => r.Status == Models.Request.STATUSINREVIEW && UserID != r.UserID)
                     .ToListAsync();
         }
 
-
-
-    //    @GetMapping("/list-review/{userId}")
-
-    //public List<Request> getAllForReview(@PathVariable int userId)
-    //    {
-    //        List<Request> requests = requestRepo.findByStatusAndUserIdNot(REVIEW, userId);
-
-
-    //        return requests;
-    //    }
-
-        private void RecalculateTotal(int requestID)
-        {
-            //sum up requestlines
-            //update the request
-            //save changes
-        }
     }
 }
