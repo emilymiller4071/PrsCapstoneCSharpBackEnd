@@ -8,15 +8,19 @@ namespace PrsBackEndCSharp.Models
         public int ID { get; set; }
 
         [StringLength(30)]
+        [Required]
         public string UserName { get; set; }
 
         [StringLength(30)]
+        [Required]
         public string Password { get; set; }
        
         [StringLength(30)]
+        [Required]
         public string FirstName { get; set; }
 
         [StringLength(30)]
+            
         public string LastName { get; set; }
 
         [StringLength(12)]
@@ -25,8 +29,10 @@ namespace PrsBackEndCSharp.Models
         [StringLength(255)]
         public string? Email { get; set; }
 
+        [Required]
         public bool IsReviewer { get; set; }
 
+        [Required]
         public bool IsAdmin { get; set; }
 
 

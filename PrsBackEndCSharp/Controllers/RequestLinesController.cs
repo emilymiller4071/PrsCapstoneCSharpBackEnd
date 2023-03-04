@@ -84,7 +84,7 @@ namespace PrsBackEndCSharp.Controllers
             try
             {
                 await _context.SaveChangesAsync();
-                RecalculateTotal(requestLine.RequestID);
+                await RecalculateTotal(requestLine.RequestID);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -109,7 +109,7 @@ namespace PrsBackEndCSharp.Controllers
         {
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
-            RecalculateTotal(requestLine.RequestID);
+            await RecalculateTotal(requestLine.RequestID);
 
             return CreatedAtAction("GetRequestLineById", new { id = requestLine.ID }, requestLine);
         }
@@ -131,7 +131,7 @@ namespace PrsBackEndCSharp.Controllers
             _context.RequestLines.Remove(requestLine);
             await _context.SaveChangesAsync();
             
-            RecalculateTotal(theRequestID);
+            await RecalculateTotal(theRequestID);
 
             return NoContent();
         }
