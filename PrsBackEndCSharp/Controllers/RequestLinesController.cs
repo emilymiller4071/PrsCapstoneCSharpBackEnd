@@ -56,7 +56,9 @@ namespace PrsBackEndCSharp.Controllers
         public async Task<ActionResult<RequestLine>> GetRequestLineById(int id)
         {
             var requestLine = await _context.RequestLines
-                .FindAsync(id);
+                .Include(rl => rl.Request).ThenInclude(r => r.User)
+                .Include(rl => rl.Product).ThenInclude(p => p.Vendor)
+                .FirstOrDefaultAsync();
 
             if (requestLine == null)
             {
