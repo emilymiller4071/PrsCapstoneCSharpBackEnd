@@ -100,7 +100,7 @@ namespace PrsBackEndCSharp.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(request);
         }
 
 
