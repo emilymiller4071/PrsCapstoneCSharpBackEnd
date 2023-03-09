@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+
 
 namespace PrsBackEndCSharp.Models
 {
@@ -29,6 +30,7 @@ namespace PrsBackEndCSharp.Models
         public string? PhotoPath { get; set; }
 
         [Required]
+        [JsonIgnore]
         public int VendorID { get; set; }
 
         [ForeignKey(nameof(VendorID))]

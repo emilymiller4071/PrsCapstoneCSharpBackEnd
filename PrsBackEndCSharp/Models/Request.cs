@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,7 @@ namespace PrsBackEndCSharp.Models
         [Column(TypeName = "decimal(11,2)")]
         public decimal Total { get; set; }
 
+        [JsonIgnore]
         public int UserID { get; set; }
 
         //Relation property that ties Request object to a user

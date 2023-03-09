@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,8 +9,10 @@ namespace PrsBackEndCSharp.Models
         [Key]
         public int ID { get; set; }
 
+        [JsonIgnore]
         public int RequestID { get; set; }
-        
+
+        [JsonIgnore]
         public int ProductID { get; set; }
 
         public int Quantity { get; set; }
@@ -25,10 +26,10 @@ namespace PrsBackEndCSharp.Models
         [ForeignKey(nameof(ProductID))]
         public Product? Product { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<RequestLine>? GetAllRequestLines { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public List<RequestLine>? GetRequestLineById { get; set; }
 
     }
