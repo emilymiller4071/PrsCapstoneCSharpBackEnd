@@ -64,24 +64,28 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        // PUT: api/Requests/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: /Requests/5
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] Request UpdatedRequest)
         {
-            var request = new Request();
+            var request = await _context.Requests.FindAsync(UpdatedRequest.ID);
+
+            if (request == null)
+            {
+                return NotFound();
+            }
 
             if (request.ID != UpdatedRequest.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(UpdatedRequest).State = EntityState.Modified;
+            _context.Entry(request).CurrentValues.SetValues(UpdatedRequest);
 
             try
             {
-                request = UpdatedRequest;
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -99,18 +103,21 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
+
+
         // POST: /Requests
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Request>> Create([FromBody] Request request)
         {
+            request.Status = Models.Request.STATUSNEW;
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRequest", new { id = request.ID }, request);
         }
 
-        // DELETE: api/Requests/5
+        // DELETE: /Requests/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -222,7 +229,8 @@ namespace PrsBackEndCSharp.Controllers
         public async Task<ActionResult<IEnumerable<Request>>> GetAllForReview(int UserID) 
         {
             return await _context.Requests
-                    .Where(r => r.Status == Models.Request.STATUSINREVIEW && UserID != r.UserID)
+                    .Where(r => r.Status == Models.Request.STATUSINREVIEW && UserID != r.UserID 
+                    && (r.User.IsAdmin || r.User.IsReviewer))
                     .ToListAsync();
         }
 

@@ -31,13 +31,6 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        /*  
-         *  
-         *  THIS IS THE PROBLEM AREA.  SQL IS WRITING BAD CODE, PULLING 
-         *  FROM REQUEST WHERE IT SHOULD BE PULLING FROM REQUESTLINE
-         *  
-         */
-
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
         {
@@ -163,11 +156,6 @@ namespace PrsBackEndCSharp.Controllers
             // save changes()
            
                 await _context.SaveChangesAsync();
-          
-         
-
-
-            throw new NotImplementedException();
             
         }
 

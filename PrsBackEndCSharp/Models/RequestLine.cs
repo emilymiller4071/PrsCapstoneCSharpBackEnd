@@ -28,5 +28,8 @@ namespace PrsBackEndCSharp.Models
         [JsonIgnore]
         public List<RequestLine>? GetAllRequestLines { get; set; }
 
+        [JsonIgnore]
+        public List<RequestLine>? GetRequestLineById { get; set; }
+
     }
 }
