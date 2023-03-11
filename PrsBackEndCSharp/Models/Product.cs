@@ -7,6 +7,7 @@ namespace PrsBackEndCSharp.Models
 {
     public class Product
     {
+        [JsonPropertyName("id")]
         [Key] 
         public int ID { get; set; }
 

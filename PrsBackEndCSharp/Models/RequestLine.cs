@@ -6,6 +6,7 @@ namespace PrsBackEndCSharp.Models
 {
     public class RequestLine
     {
+        [JsonPropertyName("id")]
         [Key]
         public int ID { get; set; }
 
@@ -13,6 +14,7 @@ namespace PrsBackEndCSharp.Models
         
         public int ProductID { get; set; }
 
+        [JsonPropertyName("quantity")]
         public int Quantity { get; set; }
 
         //relationship
