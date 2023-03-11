@@ -30,7 +30,6 @@ namespace PrsBackEndCSharp.Models
         public string? PhotoPath { get; set; }
 
         [Required]
-        [JsonIgnore]
         public int VendorID { get; set; }
 
         [ForeignKey(nameof(VendorID))]

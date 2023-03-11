@@ -9,10 +9,9 @@ namespace PrsBackEndCSharp.Models
         [Key]
         public int ID { get; set; }
 
-        [JsonIgnore]
         public int RequestID { get; set; }
 
-        [JsonIgnore]
+        
         public int ProductID { get; set; }
 
         public int Quantity { get; set; }

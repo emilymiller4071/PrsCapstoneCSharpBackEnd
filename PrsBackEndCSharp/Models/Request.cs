@@ -33,7 +33,6 @@ namespace PrsBackEndCSharp.Models
         [Column(TypeName = "decimal(11,2)")]
         public decimal Total { get; set; }
 
-        [JsonIgnore]
         public int UserID { get; set; }
 
         //Relation property that ties Request object to a user
