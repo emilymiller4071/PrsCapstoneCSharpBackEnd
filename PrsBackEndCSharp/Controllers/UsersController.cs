@@ -34,15 +34,7 @@ namespace PrsBackEndCSharp.Controllers
                 return NotFound();
             }
 
-
-            return new 
-            { 
-                Id = user.ID, 
-                FirstName = user.FirstName, 
-                LastName = user.LastName,
-                IsReviewer = user.IsReviewer, 
-                IsAdmin = user.IsAdmin
-            };
+            return new { user.ID, user.FirstName, user.LastName, user.IsReviewer, user.IsAdmin };
             
         }
 
@@ -51,9 +43,20 @@ namespace PrsBackEndCSharp.Controllers
 
         // GETALL: /Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<ActionResult<IEnumerable<object>>> GetAll()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Select(u => new
+            {
+                u.ID, 
+                u.FirstName, 
+                u.LastName, 
+                u.Phone, 
+                u.Email, 
+                u.UserName,
+                u.IsReviewer,
+                u.IsAdmin
+            })
+                .ToListAsync();
         }
 
 
@@ -63,28 +66,26 @@ namespace PrsBackEndCSharp.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<object>> GetById(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            
+            var u = await _context.Users.FindAsync(id);
 
 
-            if (user == null)
+
+            if (u == null)
             {
                 return NotFound();
             }
 
-            var userDTO = new
+            return new
             {
-                Id = user.ID,
-                UserName = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Phone = user.Phone,
-                Email = user.Email,
-                IsReviewer = user.IsReviewer,
-                IsAdmin = user.IsAdmin
+                u.ID,
+                u.FirstName,
+                u.LastName,
+                u.Phone,
+                u.Email,
+                u.UserName,
+                u.IsReviewer,
+                u.IsAdmin
             };
-
-            return userDTO;
         }
 
 
