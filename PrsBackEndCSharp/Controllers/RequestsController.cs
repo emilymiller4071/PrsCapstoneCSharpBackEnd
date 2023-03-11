@@ -7,8 +7,6 @@ namespace PrsBackEndCSharp.Controllers
 {
 
 
-
-
     [Route("/[controller]")]
     [ApiController]
     public class RequestsController : ControllerBase
@@ -25,16 +23,17 @@ namespace PrsBackEndCSharp.Controllers
 
         // GET: /Requests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Request>>> GetRequests()
+        public async Task<ActionResult<IEnumerable<Request>>> GetAll()
         {
             return await _context.Requests.Include(r => r.User).ToListAsync();
         }
 
 
 
+
         // GET: /Requests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Request>> GetRequest(int id)
+        public async Task<ActionResult<Request>> GetById(int id)
         {
             //var request = await _context.Requests.FindAsync(id);
 
@@ -53,9 +52,8 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
+
         // PUT: /Requests/5
-
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] Request UpdatedRequest)
         {
@@ -94,8 +92,8 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
+
         // POST: /Requests
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Request>> Create([FromBody] Request request)
         {
@@ -103,8 +101,11 @@ namespace PrsBackEndCSharp.Controllers
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRequest", new { id = request.ID }, request);
+            return CreatedAtAction("GetById", new { id = request.ID }, request);
         }
+
+
+
 
         // DELETE: /Requests/5
         [HttpDelete("{id}")]
@@ -121,6 +122,9 @@ namespace PrsBackEndCSharp.Controllers
 
             return NoContent();
         }
+
+
+
 
         private bool RequestExists(int id)
         {
@@ -150,6 +154,8 @@ namespace PrsBackEndCSharp.Controllers
         }
 
 
+
+
         [HttpPut]
         [Route("review")]
         public async Task<ActionResult<Request>> Review([FromBody] Request RequestForReview)
@@ -174,6 +180,9 @@ namespace PrsBackEndCSharp.Controllers
             return request;
         }
 
+
+
+
         [HttpPut]
         [Route("reject")]
         public async Task<ActionResult<Request>> Reject([FromBody] Request RejectedRequest)
@@ -194,6 +203,7 @@ namespace PrsBackEndCSharp.Controllers
       
 
 
+
         // REOPEN: /Requests/reopen
         [HttpPut]
         [Route("reopen")]
@@ -212,6 +222,9 @@ namespace PrsBackEndCSharp.Controllers
 
             return request;
         }
+
+
+
 
         [HttpGet]
         [Route("list-review/{UserID}")]

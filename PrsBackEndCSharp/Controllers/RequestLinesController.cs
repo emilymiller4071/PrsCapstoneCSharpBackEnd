@@ -19,7 +19,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
+        public async Task<ActionResult<IEnumerable<RequestLine>>> GetAll()
         {
             var rl = await _context.RequestLines
                 .Include(rl => rl.Request).ThenInclude(r => r.User)
@@ -33,7 +33,7 @@ namespace PrsBackEndCSharp.Controllers
 
         // GET: /request-lines/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RequestLine>> GetRequestLineById(int id)
+        public async Task<ActionResult<RequestLine>> GetById(int id)
         {
             var requestLine = await _context.RequestLines
                 .Include(rl => rl.Request).ThenInclude(r => r.User)
@@ -47,6 +47,7 @@ namespace PrsBackEndCSharp.Controllers
 
             return requestLine;
         }
+
 
 
 
@@ -83,6 +84,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
+
         // CREATE: /request-lines
         [HttpPost]
         public async Task<ActionResult<RequestLine>> Create(RequestLine requestLine)
@@ -91,8 +93,9 @@ namespace PrsBackEndCSharp.Controllers
             await _context.SaveChangesAsync();
             await RecalculateTotal(requestLine.RequestID);
 
-            return CreatedAtAction("GetRequestLineById", new { id = requestLine.ID }, requestLine);
+            return CreatedAtAction("GetById", new { id = requestLine.ID }, requestLine);
         }
+
 
 
 
@@ -118,10 +121,12 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
+
         private bool RequestLineExists(int id)
         {
             return _context.RequestLines.Any(e => e.ID == id);
         }
+
 
 
 

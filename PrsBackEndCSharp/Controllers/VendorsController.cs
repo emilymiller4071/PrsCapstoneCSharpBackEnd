@@ -17,14 +17,17 @@ namespace PrsBackEndCSharp.Controllers
 
         // GET: /Vendors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
+        public async Task<ActionResult<IEnumerable<Vendor>>> GetAll()
         {
             return await _context.Vendors.ToListAsync();
         }
 
+
+
+
         // GET: /Vendors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Vendor>> GetVendor(int id)
+        public async Task<ActionResult<Vendor>> GetById(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
 
@@ -36,10 +39,12 @@ namespace PrsBackEndCSharp.Controllers
             return vendor;
         }
 
+
+
+
         // PUT: /Vendors/5
-       
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVendor(int id, Vendor vendor)
+        public async Task<IActionResult> Update(int id, Vendor vendor)
         {
             if (id != vendor.ID)
             {
@@ -67,20 +72,25 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
+
+
+
         // POST: /Vendors
-       
         [HttpPost]
-        public async Task<ActionResult<Vendor>> PostVendor(Vendor vendor)
+        public async Task<ActionResult<Vendor>> Create(Vendor vendor)
         {
             _context.Vendors.Add(vendor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVendor", new { id = vendor.ID }, vendor);
+            return CreatedAtAction("GetById", new { id = vendor.ID }, vendor);
         }
+
+
+
 
         // DELETE: /Vendors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVendor(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
             if (vendor == null)
@@ -93,6 +103,9 @@ namespace PrsBackEndCSharp.Controllers
 
             return NoContent();
         }
+
+
+
 
         private bool VendorExists(int id)
         {
