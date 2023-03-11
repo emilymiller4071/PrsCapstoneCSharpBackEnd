@@ -34,10 +34,16 @@ namespace PrsBackEndCSharp.Controllers
                 return NotFound();
             }
 
-            return user;  // best practice: only return what's needed!
 
-            // best practice
-            //return new { Firstname = user.FirstName, Lastname = user.LastName, Id = user.ID, IsAdmin = user.IsAdmin };
+            return new 
+            { 
+                Id = user.ID, 
+                FirstName = user.FirstName, 
+                LastName = user.LastName,
+                IsReviewer = user.IsReviewer, 
+                IsAdmin = user.IsAdmin
+            };
+            
         }
 
 
@@ -55,10 +61,10 @@ namespace PrsBackEndCSharp.Controllers
 
         // GETBYID: /Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetById(int id)
+        public async Task<ActionResult<object>> GetById(int id)
         {
             var user = await _context.Users.FindAsync(id);
-            //var user1 = await _context.Users.Where(u => u.ID == id).FirstOrDefaultAsync();
+            
 
 
             if (user == null)
@@ -66,7 +72,19 @@ namespace PrsBackEndCSharp.Controllers
                 return NotFound();
             }
 
-            return user;
+            var userDTO = new
+            {
+                Id = user.ID,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Phone = user.Phone,
+                Email = user.Email,
+                IsReviewer = user.IsReviewer,
+                IsAdmin = user.IsAdmin
+            };
+
+            return userDTO;
         }
 
 
