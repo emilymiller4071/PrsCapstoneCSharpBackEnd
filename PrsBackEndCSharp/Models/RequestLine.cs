@@ -10,7 +10,6 @@ namespace PrsBackEndCSharp.Models
         public int ID { get; set; }
 
         public int RequestID { get; set; }
-
         
         public int ProductID { get; set; }
 
@@ -25,10 +24,8 @@ namespace PrsBackEndCSharp.Models
         [ForeignKey(nameof(ProductID))]
         public Product? Product { get; set; }
 
-        //[JsonIgnore]
         public List<RequestLine>? GetAllRequestLines { get; set; }
 
-        //[JsonIgnore]
         public List<RequestLine>? GetRequestLineById { get; set; }
 
     }
