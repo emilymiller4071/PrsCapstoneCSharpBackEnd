@@ -32,10 +32,10 @@ namespace PrsBackEndCSharp.Controllers
 
 
         // GET: /Products/5
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _context.Products.Include(p => p.Vendor).FirstOrDefaultAsync();
+            var product = await _context.Products.Include(p => p.Vendor).Where(p => p.ID == id).SingleOrDefaultAsync();
 
             if (product == null)
             {
@@ -47,7 +47,7 @@ namespace PrsBackEndCSharp.Controllers
 
         // PUT: /Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("/{id}")]
         public async Task<IActionResult> PutProduct (Product product)
         {
             //if (id != product.Id)
@@ -89,7 +89,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
         // DELETE: /Products/5
-        [HttpDelete("{id}")]
+        [HttpDelete("/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);

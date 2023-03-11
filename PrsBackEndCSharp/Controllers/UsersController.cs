@@ -4,7 +4,7 @@ using PrsBackEndCSharp.Models;
 
 namespace PrsBackEndCSharp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -16,13 +16,6 @@ namespace PrsBackEndCSharp.Controllers
         }
 
 
-        //public async Task<ActionResult> LoginUser(string userName, string password)
-        //{
-        //    var user = await _context.Users.Where(u => u.UserName == userName && u.Password == password).FirstOrDefaultAsync();
-
-        //    return user;
-
-        //}
 
 
         [Route("/login")]
@@ -45,7 +38,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        // GET: api/Users
+        // GET: /Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -53,7 +46,7 @@ namespace PrsBackEndCSharp.Controllers
         }
 
 
-        // GET: api/Users/5
+        // GET: /Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
@@ -69,7 +62,7 @@ namespace PrsBackEndCSharp.Controllers
             return user;
         }
 
-        // PUT: api/Users/5
+        // PUT: /Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
@@ -100,8 +93,8 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: /Users
+       
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
@@ -111,7 +104,7 @@ namespace PrsBackEndCSharp.Controllers
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 
-        // DELETE: api/Users/5
+        // DELETE: /Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

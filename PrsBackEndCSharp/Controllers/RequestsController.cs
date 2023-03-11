@@ -130,7 +130,7 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        // APPROVE: api/Requests/approve
+        // APPROVE: /Requests/approve
         [HttpPut]
         [Route("approve")]
         public async Task<ActionResult<Request>> Approve([FromBody] Request ApprovedRequest)
@@ -214,7 +214,7 @@ namespace PrsBackEndCSharp.Controllers
         }
 
         [HttpGet]
-        [Route("list-review /{UserID}")]
+        [Route("list-review/{UserID}")]
         public async Task<ActionResult<IEnumerable<Request>>> GetAllForReview(int UserID) 
         {
             return await _context.Requests

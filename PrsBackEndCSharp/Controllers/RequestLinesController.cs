@@ -17,14 +17,6 @@ namespace PrsBackEndCSharp.Controllers
 
 
 
-        //// GET: /request-lines
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()
-        //{
-        //    return await _context.RequestLines.ToListAsync();
-        //}
-
-
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RequestLine>>> GetAllRequestLines()

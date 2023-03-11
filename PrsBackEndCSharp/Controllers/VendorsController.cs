@@ -4,7 +4,7 @@ using PrsBackEndCSharp.Models;
 
 namespace PrsBackEndCSharp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/[controller]")]
     [ApiController]
     public class VendorsController : ControllerBase
     {
@@ -15,15 +15,15 @@ namespace PrsBackEndCSharp.Controllers
             _context = context;
         }
 
-        // GET: api/Vendors
+        // GET: /Vendors
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Vendor>>> GetVendors()
         {
             return await _context.Vendors.ToListAsync();
         }
 
-        // GET: api/Vendors/5
-        [HttpGet("{id}")]
+        // GET: /Vendors/5
+        [HttpGet("/{id}")]
         public async Task<ActionResult<Vendor>> GetVendor(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
@@ -36,9 +36,9 @@ namespace PrsBackEndCSharp.Controllers
             return vendor;
         }
 
-        // PUT: api/Vendors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        // PUT: /Vendors/5
+       
+        [HttpPut("/{id}")]
         public async Task<IActionResult> PutVendor(int id, Vendor vendor)
         {
             if (id != vendor.ID)
@@ -67,8 +67,8 @@ namespace PrsBackEndCSharp.Controllers
             return NoContent();
         }
 
-        // POST: api/Vendors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: /Vendors
+       
         [HttpPost]
         public async Task<ActionResult<Vendor>> PostVendor(Vendor vendor)
         {
@@ -78,8 +78,8 @@ namespace PrsBackEndCSharp.Controllers
             return CreatedAtAction("GetVendor", new { id = vendor.ID }, vendor);
         }
 
-        // DELETE: api/Vendors/5
-        [HttpDelete("{id}")]
+        // DELETE: /Vendors/5
+        [HttpDelete("/{id}")]
         public async Task<IActionResult> DeleteVendor(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
