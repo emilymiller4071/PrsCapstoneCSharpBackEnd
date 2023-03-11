@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.Intrinsics.X86;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json.Linq;
 using PrsBackEndCSharp.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 
 namespace PrsBackEndCSharp.Controllers
 {
