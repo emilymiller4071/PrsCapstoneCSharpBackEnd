@@ -24,9 +24,5 @@ namespace PrsBackEndCSharp.Models
         [ForeignKey(nameof(ProductID))]
         public Product? Product { get; set; }
 
-        public List<RequestLine>? GetAllRequestLines { get; set; }
-
-        public List<RequestLine>? GetRequestLineById { get; set; }
-
     }
 }
