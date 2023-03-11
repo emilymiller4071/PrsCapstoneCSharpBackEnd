@@ -23,7 +23,7 @@ namespace PrsBackEndCSharp.Controllers
         }
 
         // GET: /Vendors/5
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Vendor>> GetVendor(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
@@ -38,7 +38,7 @@ namespace PrsBackEndCSharp.Controllers
 
         // PUT: /Vendors/5
        
-        [HttpPut("/{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> PutVendor(int id, Vendor vendor)
         {
             if (id != vendor.ID)
@@ -79,7 +79,7 @@ namespace PrsBackEndCSharp.Controllers
         }
 
         // DELETE: /Vendors/5
-        [HttpDelete("/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVendor(int id)
         {
             var vendor = await _context.Vendors.FindAsync(id);
