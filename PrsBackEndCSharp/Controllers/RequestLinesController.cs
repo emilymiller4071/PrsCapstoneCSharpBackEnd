@@ -21,14 +21,14 @@ namespace PrsBackEndCSharp.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RequestLine>>> GetAll()
         {
-            var rl = await _context.RequestLines
+            return await _context.RequestLines
                 .Include(rl => rl.Request).ThenInclude(r => r.User)
                 .Include(rl => rl.Product).ThenInclude(p => p.Vendor)
                 .ToListAsync();
-            return Ok(rl);
+            //return Ok(rl);
         }
         
-
+       // return await _context.Requests.Include(r => r.User).ToListAsync();
 
 
         // GET: /request-lines/5

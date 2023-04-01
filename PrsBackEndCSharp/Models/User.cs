@@ -37,11 +37,11 @@ namespace PrsBackEndCSharp.Models
         [StringLength(255)]
         public string? Email { get; set; }
 
-        [JsonPropertyName("isReviewer")]
+        [JsonPropertyName("reviewer")]
         [Required]
         public bool IsReviewer { get; set; }
 
-        [JsonPropertyName("isAdmin")]
+        [JsonPropertyName("admin")]
         [Required]
         public bool IsAdmin { get; set; }
 
